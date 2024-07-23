@@ -1,0 +1,39 @@
+{
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/src/server.js",
+    "dev": "nodemon src/server.ts",
+    "seed": "tsx src/seed.ts",
+    "seed:prod" : "node dist/src/seed.js",
+    "test": "mocha --exit -r tsx test/**/*.spec.ts"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.16",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/mocha": "^10.0.6",
+    "@types/mongodb-memory-server": "^2.3.0",
+    "@types/sinon": "^17.0.3",
+    "@types/uuid": "^9.0.8",
+    "chai": "^5.1.1",
+    "chai-http": "^4.4.0",
+    "install": "^0.13.0",
+    "mocha": "^10.4.0",
+    "mongodb-memory-server": "^9.3.0",
+    "nodemon": "^3.1.3",
+    "npm": "^10.8.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.11.2",
+    "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "moment-timezone": "^0.5.45",
+    "mongoose": "^8.4.1",
+    "sinon": "^18.0.0",
+    "uuid": "^9.0.1"
+  }
+}

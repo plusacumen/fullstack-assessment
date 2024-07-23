@@ -1,0 +1,22 @@
+{
+  "name": "assessment-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "seed:backend": "npm run seed --prefix backend",
+    "start:backend": "npm run dev --prefix backend",
+    "start:frontend": "npm start --prefix frontend",
+    "copy-env": "cp backend/.env.example backend/.env",
+    "start": "concurrently \"npm run start:frontend\" \"npm run seed:backend\" \"npm run start:backend\"",
+    "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
+    "setup": "npm run install:all && npm run copy-env"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "description": "This project includes a Gatsby.js frontend and an Express.js backend that handle course enrollment functionality. Users can browse courses, enroll in them, and view their enrolled courses. The whole project is Dockerized.",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
