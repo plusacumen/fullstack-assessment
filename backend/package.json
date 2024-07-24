@@ -4,27 +4,30 @@
     "start": "node dist/src/server.js",
     "dev": "nodemon src/server.ts",
     "seed": "tsx src/seed.ts",
-    "seed:prod" : "node dist/src/seed.js",
-    "test": "mocha --exit -r tsx test/**/*.spec.ts"
+    "seed:prod": "node dist/src/seed.js",
+    "test": "mocha --exit -r tsx --timeout 60000 test/**/*.spec.ts"
   },
   "devDependencies": {
     "@types/chai": "^4.3.16",
+    "@types/chai-http": "^4.2.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
-    "@types/mocha": "^10.0.6",
+    "@types/mocha": "^10.0.7",
     "@types/mongodb-memory-server": "^2.3.0",
     "@types/sinon": "^17.0.3",
     "@types/uuid": "^9.0.8",
     "chai": "^5.1.1",
     "chai-http": "^4.4.0",
     "install": "^0.13.0",
-    "mocha": "^10.4.0",
+    "jest": "^29.7.0",
+    "mocha": "^10.7.0",
     "mongodb-memory-server": "^9.3.0",
     "nodemon": "^3.1.3",
     "npm": "^10.8.0",
+    "supertest": "^7.0.0",
     "ts-node": "^10.9.2",
     "tsx": "^4.11.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.4"
   },
   "dependencies": {
     "body-parser": "^1.20.2",

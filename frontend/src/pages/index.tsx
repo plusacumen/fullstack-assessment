@@ -18,6 +18,11 @@ const CoursesSection = styled.div`
   justify-content: space-around;
 `;
 
+//styled ColumnFixedDiv to move the bar to the left
+const ColumnFixedDiv = styled.div`
+  display: flex; 
+`;
+
 const courses = [
   {
     id: "1",
@@ -59,6 +64,8 @@ const courses = [
 
 const CourseCatalog: React.FC = () => {
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [filteredCourses, setFilteredCourses] = useState(courses);
 
   useEffect(() => {
     if (!localStorage.getItem("email")) {
@@ -67,25 +74,51 @@ const CourseCatalog: React.FC = () => {
         localStorage.setItem("email", email);
       }
     }
-  });
+  }, []);
+
+  useEffect(() => {
+    filterCourses(selectedFilters, searchTerm);
+  }, [selectedFilters, searchTerm]);
 
   const handleFilterChange = (filters: string[]) => {
     setSelectedFilters(filters);
   };
 
-  const filteredCourses = courses.filter(
-    (course) =>
-      (selectedFilters.length === 0 ||
-        selectedFilters.includes(course.category))
-  );
+  const handleSearchChange = (searchTerm: string) => {
+    setSearchTerm(searchTerm);
+  };
+
+  const filterCourses = (filters: string[], search: string) => {
+    let filtered = courses;
+
+    if (filters.length > 0) {
+      filtered = filtered.filter((course) =>
+        filters.includes(course.category)
+      );
+    }
+
+    if (search) {
+      filtered = filtered.filter((course) =>
+        course.title.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    setFilteredCourses(filtered);
+  };
+
+
 
   return (
     <Layout>
       <Hero />
-      <SearchBar />
-      <>
+      <SearchBar 
+        onSearchChange={handleSearchChange}
+      />
+      <ColumnFixedDiv>
         <FilterSection>
-          <Filters onFilterChange={handleFilterChange} />
+          <Filters 
+            onFilterChange={handleFilterChange} 
+          />
         </FilterSection>
         <CoursesSection>
           {filteredCourses.map((course) => (
@@ -98,7 +131,7 @@ const CourseCatalog: React.FC = () => {
             />
           ))}
         </CoursesSection>
-      </>
+      </ColumnFixedDiv>
     </Layout>
   );
 };
