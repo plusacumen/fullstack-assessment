@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import styled from '@emotion/styled';
 
 const SearchContainer = styled.div`
@@ -15,14 +15,32 @@ const Input = styled.input`
   font-size: 1rem;
 `;
 
+interface FiltersProps {
+  onSearchChange: (searchTerm: string) => void;
+}
 
-const SearchBar = () => {
+const SearchBar: React.FC<FiltersProps> = ({ onSearchChange }) => {
+  const [ searchTerm, setSearchTerm ] = useState<string>("");
+
+  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchTerm(value);
+    onSearchChange(value);
+  };
 
   return (
     <SearchContainer>
-      <Input type="text" placeholder="Search courses..." />
+      <Input 
+        type="text" 
+        placeholder="Search courses..." 
+        value={searchTerm}
+        onChange={handleSearchChange}
+      />
     </SearchContainer>
   );
 };
+
+
+
 
 export default SearchBar;

@@ -59,11 +59,15 @@ const Dashboard: React.FC = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
+        const email = localStorage.getItem("email");
+        if (!email){
+          throw new Error("There is no email found in localstorage");
+        }
         const response = await fetch(
-          `http://localhost:4000/api/v1/enrolled-courses?email=`
+          `http://localhost:4000/api/v1/enrolled-courses?email=${encodeURIComponent(email)}`
         );
         if (!response.ok) {
-          throw new Error("Network response was not ok");
+          throw new Error("Network response was not ok: ${response.statusText}");
         }
         const data: Course[] = await response.json();
         console.log(data);

@@ -5,7 +5,15 @@ FROM node:22-bullseye-slim AS builder
 WORKDIR /app
 
 # Install Python and other dependencies
-RUN apt-get update && apt-get install -y python3 g++ make
+RUN apt-get update && apt-get install -y \
+  python3 \
+  g++ \
+  make \
+  libcairo2-dev \
+  libpango1.0-dev \
+  libjpeg-dev \
+  libgif-dev \
+  librsvg2-dev
 
 # Create a symlink for `python` as some tools expect `python` command
 RUN ln -s /usr/bin/python3 /usr/bin/python

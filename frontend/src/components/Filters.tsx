@@ -41,19 +41,22 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange }) => {
   };
 
   return (
-    <FilterContainer>
-      {filters.map((filter) => (
-        <CheckboxLabel key={filter}>
-          <input
-            type="checkbox"
-            name={filter}
-            checked={selectedFilters.includes(filter)}
-            onChange={handleCheckboxChange}
-          />
-          {filter}
-        </CheckboxLabel>
-      ))}
-    </FilterContainer>
+    <div>
+      <FilterContainer>
+            {filters.map((filter) => (
+              <CheckboxLabel key={filter}>
+                <input
+                  type="checkbox"
+                  name={filter}
+                  checked={selectedFilters.includes(filter)}
+                  onChange={handleCheckboxChange}
+                />
+                {filter}
+              </CheckboxLabel>
+            ))}
+          </FilterContainer>
+    </div>
+   
   );
 };
 

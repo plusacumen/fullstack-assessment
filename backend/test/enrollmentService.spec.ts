@@ -73,6 +73,24 @@ describe("EnrollmentService", () => {
     }
   });
 
+  it("should handle missing fields during enrollment", async () => {
+    try {
+      await enrollmentService.enroll({
+        email: "test@example.com",
+        first_name: "", //missing one
+        last_name: "Doe",
+        course_id: "course-id",
+        course_name: "Test Course",
+        provider: "Test Provider",
+        external_id: "external-id",
+      });
+      expect.fail('Expected error not thrown');
+    } catch (error) {
+      expect(error.message).to.include("Validation failed"); // Ajusta el mensaje de error esperado
+    }
+  });
+  
+
   it("should return error if user already enrolled", async () => {
     const course = new Course({ course_id: "course-id" });
     lmsServiceStub.findCourseById.resolves(course);
@@ -95,6 +113,26 @@ describe("EnrollmentService", () => {
       expect(error.message).to.equal("User already enrolled in this course");
     }
   });
+
+  it("should handle invalid course ID during enrollment", async () => {
+    lmsServiceStub.findCourseById.resolves(null);
+  
+    try {
+      await enrollmentService.enroll({
+        email: "test@example.com",
+        first_name: "John",
+        last_name: "Doe",
+        course_id: "invalid-course-id",
+        course_name: "Test Course",
+        provider: "Test Provider",
+        external_id: "external-id",
+      });
+      expect.fail('Expected error not thrown');
+    } catch (error) {
+      expect(error.message).to.equal("Course not found");
+    }
+  });
+  
 
   it("should get enrolled courses successfully", async () => {
     const courses = [
